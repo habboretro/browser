@@ -1,0 +1,76 @@
+{
+  "name": "browser",
+  "productName": "Electron Browser",
+  "description": "A web browser build in Electron to enable flash.",
+  "homepage": "https://github.com/habboretro/browser",
+  "author": "habboretro",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "mac": "electron-builder --macos",
+    "windows": "electron-builder --windows",
+    "linux": "electron-builder --linux"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^11.2.0",
+    "electron-builder": "^22.9.1"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "electron-navigation": "^1.5.8",
+    "electron-updater": "^4.3.5"
+  },
+  "build": {
+    "appId": "com.habboretro.Browser",
+    "extraResources": [
+      {
+        "from": "./plugins/",
+        "to": "../plugins"
+      }
+    ],
+    "mac": {
+      "category": "public.games.social-networking",
+      "darkModeSupport": true,
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements-mac.plist",
+      "entitlementsInherit": "build/entitlements-mac.plist"
+    },
+    "dmg": {
+      "iconSize": 160,
+      "contents": [
+        {
+          "x": 180,
+          "y": 170
+        },
+        {
+          "x": 480,
+          "y": 170,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Network;Chat"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    }
+  }
+}

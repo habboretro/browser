@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+<body>
+  <main id="container">
+    <div id="nav-body-tabs"></div>
+    <div id="nav-body-ctrls" class="bg-gray-200"></div>
+    <div id="nav-body-views"></div>
+  </main>
+
+
+  <script>
+    require('dotenv').config()
+    const defaultTabs = Array.from(process.env.BROWSER_DEFAULT_TABS ? process.env.BROWSER_DEFAULT_TABS.split(',') : ['https://findretros.com', 'https://pabbo-hotel.com'])
+    const navigation = new (require('electron-navigation'))({
+      defaultFavicons: true,
+      newTabCallback: (url, options) => {
+        options.postTabOpenCallback = webview => (webview.setAttribute('plugins', ''))
+        return { options }
+      }
+    })
+
+    for (const tab of defaultTabs) {
+      navigation.newTab(tab, { icon: "default" })
+    }
+  </script>
+</body>
+</html>
